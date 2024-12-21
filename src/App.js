@@ -56,12 +56,15 @@ export default function App() {
     setSelectStatus(e.target.value);
   }
 
-  function handleBookStatusChange(id, e) {
+  async function handleBookStatusChange(id, e) {
+    const newState = Number(e.target.value);
+
     try {
-      const updatedBook = updateBookStatus(id, e.target.value);
+      const updatedBook = updateBookStatus(id, newState);
+
       setBooks((prevBooks) =>
         prevBooks.map((book) =>
-          book.id === id ? { ...book, read: Number(e.target.value) } : book
+          book._id === id ? { ...book, read: newState } : book
         )
       );
     } catch (error) {
