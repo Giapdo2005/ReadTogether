@@ -81,6 +81,10 @@ export default function App() {
     );
   }
 
+  function handleFilterBooks(e) {
+    setSelectStatus(e.target.value);
+  }
+
   return (
     <div className="App">
       <Header />
@@ -91,6 +95,7 @@ export default function App() {
         status={selectStatus}
         onStatusChange={onStatusChange}
         onBookStatusChange={handleBookStatusChange}
+        onFilterBooks={handleFilterBooks}
       />
       <FriendList friends={friends} />
     </div>
