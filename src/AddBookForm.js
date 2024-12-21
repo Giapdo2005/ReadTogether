@@ -1,11 +1,13 @@
 import { useState } from "react";
 import "./styles/AddBookForm.css";
+import { set } from "lodash";
 
 export function AddBookForm({ onAddBook }) {
   const [title, setTitle] = useState("");
   const [publishedYear, setPublishedYear] = useState("");
   const [author, setAuthor] = useState("");
-  const [theme, setTheme] = useState("");
+  const [genre, setGenre] = useState("");
+  const [read, setRead] = useState(0);
 
   function handleAddBook(e) {
     e.preventDefault();
@@ -16,14 +18,16 @@ export function AddBookForm({ onAddBook }) {
       title: title,
       publishedYear: publishedYear,
       author: author,
-      theme: theme
+      genre: genre,
+      read: read,
     };
 
     onAddBook(newBook);
     setTitle("");
     setPublishedYear("");
     setAuthor("");
-    setTheme("");
+    setGenre("");
+    setRead(0);
   }
 
   return (
@@ -63,13 +67,13 @@ export function AddBookForm({ onAddBook }) {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="theme">Theme</label>
+        <label htmlFor="genre">Genre</label>
         <input
-          id="theme"
+          id="genre"
           type="text"
-          value={theme}
-          placeholder="Enter Theme"
-          onChange={(e) => setTheme(e.target.value)}
+          value={genre}
+          placeholder="Enter Genre"
+          onChange={(e) => setGenre(e.target.value)}
           className="form-input"
         />
       </div>

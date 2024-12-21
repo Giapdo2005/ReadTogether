@@ -37,6 +37,7 @@ export function Book({
       <div className="book-status">
         <select
           className={`book-status-select ${statusStyles[read]}`}
+          value={read}
           onChange={onBookStatusChange}
         >
           <option value="0">Haven't Started</option>

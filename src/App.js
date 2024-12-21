@@ -1,45 +1,11 @@
 import { set } from "lodash";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { AddBookForm } from "./AddBookForm";
 import { BookList } from "./BookList";
 import { Header } from "./Header";
 import { FriendList } from "./FriendList";
+import { fetchBooks, addBook, updateBookStatus } from "./api";
 import "./styles/Index.css";
-
-const initialBooks = [
-  {
-    id: 1,
-    title: "The Great Gatsby",
-    publishedYear: 1925,
-    author: "F. Scott Fitzgerald",
-    theme: "Modernist",
-    read: 0,
-  },
-  {
-    id: 2,
-    title: "To Kill a Mockingbird",
-    publishedYear: 1960,
-    author: "Harper Lee",
-    theme: "Southern Gothic",
-    read: 0,
-  },
-  {
-    id: 3,
-    title: "1984",
-    publishedYear: 1949,
-    author: "George Orwell",
-    theme: "Dystopian",
-    read: 0,
-  },
-  {
-    id: 4,
-    title: "Pride and Prejudice",
-    publishedYear: 1813,
-    author: "Jane Austen",
-    theme: "Romantic",
-    read: 0,
-  },
-];
 
 const initialFriends = [
   {
@@ -60,13 +26,30 @@ const initialFriends = [
 ];
 
 export default function App() {
-  const [books, setBooks] = useState(initialBooks);
+  const [books, setBooks] = useState([]);
   const [friends, setFriends] = useState(initialFriends);
   const [selectStatus, setSelectStatus] = useState("all");
-  const length = books.length;
 
-  function onAddBook(newBook) {
-    setBooks((prevBooks) => [...prevBooks, newBook]);
+  useEffect(() => {
+    const loadBooks = async () => {
+      try {
+        const booksData = await fetchBooks();
+        setBooks(booksData);
+      } catch (error) {
+        console.error("loadBooks -> error", error);
+      }
+    };
+
+    loadBooks();
+  }, []);
+
+  async function onAddBook(newBook) {
+    try {
+      const addedBook = await addBook(newBook);
+      setBooks((prevBooks) => [...prevBooks, addedBook]);
+    } catch (error) {
+      console.error("onAddBook -> error", error);
+    }
   }
 
   function onStatusChange(e) {
@@ -74,11 +57,16 @@ export default function App() {
   }
 
   function handleBookStatusChange(id, e) {
-    setBooks((prevBooks) =>
-      prevBooks.map((book) =>
-        book.id === id ? { ...book, read: Number(e.target.value) } : book
-      )
-    );
+    try {
+      const updatedBook = updateBookStatus(id, e.target.value);
+      setBooks((prevBooks) =>
+        prevBooks.map((book) =>
+          book.id === id ? { ...book, read: Number(e.target.value) } : book
+        )
+      );
+    } catch (error) {
+      console.error("handleBookStatusChange -> error", error);
+    }
   }
 
   function handleFilterBooks(e) {
@@ -91,7 +79,6 @@ export default function App() {
       <AddBookForm onAddBook={onAddBook} />
       <BookList
         books={books}
-        length={length}
         status={selectStatus}
         onStatusChange={onStatusChange}
         onBookStatusChange={handleBookStatusChange}

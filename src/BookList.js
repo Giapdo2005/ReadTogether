@@ -3,7 +3,6 @@ import "./styles/BookList.css";
 
 export function BookList({
   books,
-  length,
   onStatusChange,
   status,
   onBookStatusChange,
@@ -13,7 +12,7 @@ export function BookList({
   return (
     <div className="book-list-container">
       <div className="book-list-header">
-        <h2 className="book-list-title">Giap's BookList ({length})</h2>
+        <h2 className="book-list-title">Giap's BookList</h2>
         <div className="filter-section">
           <label htmlFor="status-filter">Filter by status:</label>
           <select
@@ -32,14 +31,14 @@ export function BookList({
         {status === "all" &&
           books.map((book) => (
             <Book
-              key={book.id}
-              id={book.id}
+              key={book._id}
+              id={book._id}
               title={book.title}
               year={book.publishedYear}
               author={book.author}
-              theme={book.theme}
+              theme={book.genre}
               read={book.read}
-              onBookStatusChange={(e) => onBookStatusChange(book.id, e)}
+              onBookStatusChange={(e) => onBookStatusChange(book._id, e)}
             />
           ))}
         {status === "reading" &&
@@ -47,14 +46,14 @@ export function BookList({
             .filter((book) => book.read === 1)
             .map((book) => (
               <Book
-                key={book.id}
-                id={book.id}
+                key={book._id}
+                id={book._id}
                 title={book.title}
                 year={book.publishedYear}
                 author={book.author}
-                theme={book.theme}
+                theme={book.genre}
                 read={book.read}
-                onBookStatusChange={(e) => onBookStatusChange(book.id, e)}
+                onBookStatusChange={(e) => onBookStatusChange(book._id, e)}
               />
             ))}
         {status === "finished" &&
@@ -62,14 +61,14 @@ export function BookList({
             .filter((book) => book.read === 2)
             .map((book) => (
               <Book
-                key={book.id}
-                id={book.id}
+                key={book._id}
+                id={book._id}
                 title={book.title}
                 year={book.publishedYear}
                 author={book.author}
-                theme={book.theme}
+                theme={book.genre}
                 read={book.read}
-                onBookStatusChange={(e) => onBookStatusChange(book.id, e)}
+                onBookStatusChange={(e) => onBookStatusChange(book._id, e)}
               />
             ))}
       </div>
