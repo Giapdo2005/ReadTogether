@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const Book = require("./models/book.model.js");
+const e = require("express");
 const app = express();
 
 app.use(express.json());
@@ -47,6 +48,22 @@ app.put("/api/books/:id", async (req, res) => {
     res.status(200).json(updatedBook);
   } catch (error) {
     res.status(500).json({ message: "Can't find book" });
+  }
+});
+
+app.delete("/api/books/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const cleanedId = id.trim();
+    const deletedBook = await Book.findByIdAndDelete(cleanedId);
+
+    if (!deletedBook) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+    res.status(200).json({ message: "Book deleted successfully", deletedBook });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 });
 

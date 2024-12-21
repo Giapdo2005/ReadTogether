@@ -1,11 +1,16 @@
-import { set } from "lodash";
 import { useState, useEffect } from "react";
 import { AddBookForm } from "./AddBookForm";
 import { BookList } from "./BookList";
 import { Header } from "./Header";
 import { FriendList } from "./FriendList";
-import { fetchBooks, addBook, updateBookStatus } from "./api";
+import {
+  fetchBooks,
+  addBook,
+  updateBookStatus,
+  deleteSelectedBook,
+} from "./api";
 import "./styles/Index.css";
+import { AddFriendForm } from "./AddFriendForm";
 
 const initialFriends = [
   {
@@ -52,16 +57,10 @@ export default function App() {
     }
   }
 
-  function onStatusChange(e) {
-    setSelectStatus(e.target.value);
-  }
-
   async function handleBookStatusChange(id, e) {
     const newState = Number(e.target.value);
 
     try {
-      const updatedBook = updateBookStatus(id, newState);
-
       setBooks((prevBooks) =>
         prevBooks.map((book) =>
           book._id === id ? { ...book, read: newState } : book
@@ -76,6 +75,15 @@ export default function App() {
     setSelectStatus(e.target.value);
   }
 
+  async function handleDeleteBook(id) {
+    try {
+      const deleteBook = await deleteSelectedBook(id);
+      setBooks((prevBooks) => prevBooks.filter((book) => book._id !== id));
+    } catch (error) {
+      console.error("handleDeleteBook -> error", error);
+    }
+  }
+
   return (
     <div className="App">
       <Header />
@@ -83,10 +91,11 @@ export default function App() {
       <BookList
         books={books}
         status={selectStatus}
-        onStatusChange={onStatusChange}
         onBookStatusChange={handleBookStatusChange}
         onFilterBooks={handleFilterBooks}
+        onDeleteBook={handleDeleteBook}
       />
+      <AddFriendForm />
       <FriendList friends={friends} />
     </div>
   );

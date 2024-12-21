@@ -27,9 +27,18 @@ export const updateBookStatus = async (id, status) => {
       read: status,
     });
     return response.data;
-    console.log(response.data);
   } catch (error) {
     console.error("updateBookStatus -> error", error);
+    throw error;
+  }
+};
+
+export const deleteSelectedBook = async (id) => {
+  try {
+    const response = await axios.delete(`${API_BASE_URL}/books/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("deleteBook -> error", error);
     throw error;
   }
 };

@@ -9,6 +9,7 @@ export function Book({
   theme,
   onBookStatusChange,
   read,
+  onDeleteBook,
 }) {
   const statusStyles = {
     0: "status-not-started",
@@ -29,7 +30,7 @@ export function Book({
           </p>
           {theme && (
             <p className="book-theme">
-              <span className="label">Theme:</span> {theme}
+              <span className="label">Genre:</span> {theme}
             </p>
           )}
         </div>
@@ -45,6 +46,9 @@ export function Book({
           <option value="2">Finished</option>
         </select>
       </div>
+      <button className="book-delete" onClick={onDeleteBook}>
+        Delete
+      </button>
     </li>
   );
 }

@@ -3,11 +3,10 @@ import "./styles/BookList.css";
 
 export function BookList({
   books,
-  onStatusChange,
   status,
   onBookStatusChange,
-  bookStatus,
   onFilterBooks,
+  onDeleteBook,
 }) {
   return (
     <div className="book-list-container">
@@ -39,6 +38,7 @@ export function BookList({
               theme={book.genre}
               read={book.read}
               onBookStatusChange={(e) => onBookStatusChange(book._id, e)}
+              onDeleteBook={() => onDeleteBook(book._id)}
             />
           ))}
         {status === "reading" &&
