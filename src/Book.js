@@ -46,9 +46,12 @@ export function Book({
           <option value="2">Finished</option>
         </select>
       </div>
-      <button className="book-delete" onClick={onDeleteBook}>
-        Delete
-      </button>
+      <div className="book-actions">
+        <button className="book-delete" onClick={onDeleteBook}>
+          Delete
+        </button>
+        {read !== 0 && <button className="book-rate">Rate It</button>}
+      </div>
     </li>
   );
 }

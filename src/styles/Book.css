@@ -1,4 +1,4 @@
-/* Book Card Component Styles */
+/* Card Layout */
 .book-card {
   background: white;
   border-radius: 8px;
@@ -12,6 +12,11 @@
   height: 100%;
 }
 
+.book-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
 .book-card-content {
   display: flex;
   justify-content: space-between;
@@ -19,11 +24,7 @@
   gap: 1rem;
 }
 
-.book-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-}
-
+/* Book Content */
 .book-content {
   flex: 1;
 }
@@ -52,6 +53,7 @@
   margin-right: 0.5rem;
 }
 
+/* Status Select */
 .book-status {
   min-width: 140px;
 }
@@ -73,7 +75,7 @@
   box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
 }
 
-/* Status-specific styles */
+/* Status Indicators */
 .status-not-started {
   border-left: 4px solid #e74c3c;
 }
@@ -86,29 +88,27 @@
   border-left: 4px solid #2ecc71;
 }
 
-/* Responsive adjustments */
-@media (max-width: 600px) {
-  .book-card {
-    flex-direction: column;
-  }
-
-  .book-status {
-    width: 100%;
-    margin-top: 1rem;
-  }
+/* Action Buttons */
+.book-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto;
 }
 
-.book-delete {
-  width: 100%;
+.book-delete, .book-rate {
+  flex: 1;
   padding: 0.75rem;
-  background-color: white;
-  color: #dc3545;
-  border: 1px solid #dc3545;
   border-radius: 4px;
   font-size: 0.9rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  margin-top: auto;
+  font-weight: 500;
+  background-color: white;
+}
+
+.book-delete {
+  color: #dc3545;
+  border: 1px solid #dc3545;
 }
 
 .book-delete:hover {
@@ -121,7 +121,22 @@
   box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.2);
 }
 
-/* Update responsive styles */
+.book-rate {
+  color: #4a90e2;
+  border: 1px solid #4a90e2;
+}
+
+.book-rate:hover {
+  background-color: #4a90e2;
+  color: white;
+}
+
+.book-rate:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+/* Responsive Design */
 @media (max-width: 600px) {
   .book-card-content {
     flex-direction: column;
@@ -132,7 +147,8 @@
     margin-top: 1rem;
   }
 
-  .book-delete {
-    margin-top: 1rem;
+  .book-actions {
+    flex-direction: column;
+    gap: 0.5rem;
   }
 }
