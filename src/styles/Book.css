@@ -92,7 +92,6 @@
 .book-actions {
   display: flex;
   gap: 1rem;
-  margin-top: auto;
 }
 
 .book-delete, .book-rate {
@@ -136,6 +135,56 @@
   box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
 }
 
+.book-actions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: auto;
+}
+
+.rating-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  animation: slideDown 0.3s ease-out;
+}
+
+.save-rating-button {
+  padding: 0.5rem 1.5rem;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-weight: 500;
+}
+
+.save-rating-button:hover {
+  background-color: #357abd;
+}
+
+.save-rating-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 600px) {
   .book-card-content {
@@ -150,5 +199,9 @@
   .book-actions {
     flex-direction: column;
     gap: 0.5rem;
+  }
+
+  .rating-container {
+    margin-top: 0.5rem;
   }
 }

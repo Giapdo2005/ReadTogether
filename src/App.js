@@ -61,11 +61,13 @@ export default function App() {
     const newState = Number(e.target.value);
 
     try {
+      await updateBookStatus(id, newState);
       setBooks((prevBooks) =>
         prevBooks.map((book) =>
           book._id === id ? { ...book, read: newState } : book
         )
       );
+      console.log(newState);
     } catch (error) {
       console.error("handleBookStatusChange -> error", error);
     }
@@ -95,7 +97,6 @@ export default function App() {
         onFilterBooks={handleFilterBooks}
         onDeleteBook={handleDeleteBook}
       />
-      <AddFriendForm />
       <FriendList friends={friends} />
     </div>
   );

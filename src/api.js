@@ -13,8 +13,9 @@ export const fetchBooks = async () => {
 
 export const addBook = async (bookData) => {
   try {
-    const respose = await axios.post(`${API_BASE_URL}/books`, bookData);
-    return respose.data;
+    const response = await axios.post(`${API_BASE_URL}/books`, bookData);
+
+    return response.data;
   } catch (error) {
     console.error("addBook -> error", error);
     throw error;
