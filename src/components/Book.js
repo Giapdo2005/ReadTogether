@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { StarRating } from "./StarRating";
-import "./styles/Book.css";
+import "../styles/Book.css";
 
 export function Book({
   id,

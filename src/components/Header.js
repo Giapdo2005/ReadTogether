@@ -1,4 +1,5 @@
-import "./styles/Header.css";
+import "../styles/Header.css";
+
 export function Header() {
   return (
     <header className="header">

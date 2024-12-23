@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Star } from "lucide-react";
-import "./styles/StarRating.css";
+import "../styles/StarRating.css";
 
 export function StarRating({ initialRating, onRate }) {
   const [rating, setRating] = useState(initialRating);

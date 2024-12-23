@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./styles/AddBookForm.css";
+import "../styles/AddBookForm.css";
 import { set } from "lodash";
 
 export function AddBookForm({ onAddBook }) {

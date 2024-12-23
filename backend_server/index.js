@@ -17,17 +17,11 @@ app.get("/", (req, res) => {
 // create a new user
 app.post("/api/users/signup", async (req, res) => {
   try {
-    const { username, email, password } = req.body;
+    const { fullname, email, password } = req.body;
 
     //check if all fields are filled
-    if (!username || !email || !password) {
+    if (!fullname || !email || !password) {
       return res.status(400).json({ message: "Please enter all fields" });
-    }
-
-    // Check for existing username
-    const existingUsername = await User.findOne({ username });
-    if (existingUsername) {
-      return res.status(400).json({ message: "Username already exists" });
     }
 
     // Check for existing email (separate check)
@@ -36,7 +30,7 @@ app.post("/api/users/signup", async (req, res) => {
       return res.status(400).json({ message: "Email already exists" });
     }
 
-    const newUser = new User({ username, email, password });
+    const newUser = new User({ fullname, email, password });
     await newUser.save();
 
     res.status(200).json({ message: "User created successfully" }, newUser);
@@ -48,11 +42,11 @@ app.post("/api/users/signup", async (req, res) => {
 // login route
 app.post("/api/users/login", async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
     //check if user is in the database
     const user = await User.findOne({
-      username: username,
+      email: email,
     });
 
     if (!user) {
@@ -69,7 +63,10 @@ app.post("/api/users/login", async (req, res) => {
     // loggedIn successfully
     res.json({
       message: "Login successful",
-      user: { username: user.username, email: user.email },
+      user: {
+        fullname: user.fullname,
+        email: user.email,
+      },
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

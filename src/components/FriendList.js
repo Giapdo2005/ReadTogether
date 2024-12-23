@@ -1,5 +1,5 @@
 import { Friend } from "./Friend";
-import "./styles/FriendList.css";
+import "../styles/FriendList.css";
 
 export function FriendList({ friends }) {
   return (
@@ -11,7 +11,8 @@ export function FriendList({ friends }) {
             key={friend.name}
             name={friend.name}
             age={friend.age}
-            booksRead={friend.booksRead} />
+            booksRead={friend.booksRead}
+          />
         ))}
       </div>
     </div>

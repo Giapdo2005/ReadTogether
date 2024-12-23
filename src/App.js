@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { AddBookForm } from "./AddBookForm";
-import { BookList } from "./BookList";
-import { Header } from "./Header";
-import { FriendList } from "./FriendList";
+import { AddBookForm } from "./components/AddBookForm";
+import { BookList } from "./components/BookList";
+import { Header } from "./components/Header";
+import { FriendList } from "./components/FriendList";
+import { Home } from "./components/Home";
 import {
   fetchBooks,
   addBook,
@@ -10,7 +11,7 @@ import {
   deleteSelectedBook,
 } from "./api";
 import "./styles/Index.css";
-import { AddFriendForm } from "./AddFriendForm";
+import { AddFriendForm } from "./components/AddFriendForm";
 
 const initialFriends = [
   {
@@ -34,6 +35,7 @@ export default function App() {
   const [books, setBooks] = useState([]);
   const [friends, setFriends] = useState(initialFriends);
   const [selectStatus, setSelectStatus] = useState("all");
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   useEffect(() => {
     const loadBooks = async () => {
@@ -86,18 +88,29 @@ export default function App() {
     }
   }
 
+  function onLoggedIn(e) {
+    setLoggedInUser(e.target.value);
+  }
+
   return (
     <div className="App">
-      <Header />
-      <AddBookForm onAddBook={onAddBook} />
-      <BookList
-        books={books}
-        status={selectStatus}
-        onBookStatusChange={handleBookStatusChange}
-        onFilterBooks={handleFilterBooks}
-        onDeleteBook={handleDeleteBook}
-      />
-      <FriendList friends={friends} />
+      {loggedInUser ? (
+        <>
+          <Header />
+          <AddBookForm onAddBook={onAddBook} />
+          <BookList
+            books={books}
+            status={selectStatus}
+            onBookStatusChange={handleBookStatusChange}
+            onFilterBooks={handleFilterBooks}
+            onDeleteBook={handleDeleteBook}
+          />
+          <AddFriendForm />
+          <FriendList friends={friends} />
+        </>
+      ) : (
+        <Home loggedIn={onLoggedIn} />
+      )}
     </div>
   );
 }

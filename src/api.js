@@ -2,6 +2,7 @@ import axios from "axios";
 
 const API_BASE_URL = "http://localhost:3000/api";
 
+// get all books from backend
 export const fetchBooks = async () => {
   try {
     const response = await axios.get(`${API_BASE_URL}/books`);
@@ -11,6 +12,7 @@ export const fetchBooks = async () => {
   }
 };
 
+// add book to the database
 export const addBook = async (bookData) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/books`, bookData);
@@ -22,6 +24,7 @@ export const addBook = async (bookData) => {
   }
 };
 
+// update book status to the database
 export const updateBookStatus = async (id, status) => {
   try {
     const response = await axios.put(`${API_BASE_URL}/books/${id}`, {
@@ -34,12 +37,24 @@ export const updateBookStatus = async (id, status) => {
   }
 };
 
+// delete book from the database
 export const deleteSelectedBook = async (id) => {
   try {
     const response = await axios.delete(`${API_BASE_URL}/books/${id}`);
     return response.data;
   } catch (error) {
     console.error("deleteBook -> error", error);
+    throw error;
+  }
+};
+
+// check if user exists for login auth
+export const handleLogin = async (username, password) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/users/login`);
+    return response.data;
+  } catch (error) {
+    console.error("login unsuccessful", error);
     throw error;
   }
 };

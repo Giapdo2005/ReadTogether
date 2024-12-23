@@ -1,5 +1,5 @@
 import { Book } from "./Book";
-import "./styles/BookList.css";
+import "../styles/BookList.css";
 
 export function BookList({
   books,

@@ -1,4 +1,4 @@
-import './styles/AddFriendForm.css';
+import "../styles/AddFriendForm.css";
 
 export function AddFriendForm() {
   return (
