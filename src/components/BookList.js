@@ -7,11 +7,12 @@ export function BookList({
   onBookStatusChange,
   onFilterBooks,
   onDeleteBook,
+  loggedInUser,
 }) {
   return (
     <div className="book-list-container">
       <div className="book-list-header">
-        <h2 className="book-list-title">Giap's BookList</h2>
+        <h2 className="book-list-title">{`${loggedInUser}'s Booklist`}</h2>
         <div className="filter-section">
           <label htmlFor="status-filter">Filter by status:</label>
           <select

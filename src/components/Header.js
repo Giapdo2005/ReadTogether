@@ -1,6 +1,6 @@
 import "../styles/Header.css";
 
-export function Header() {
+export function Header({ onLogout }) {
   return (
     <header className="header">
       <div className="header-content">
@@ -23,7 +23,9 @@ export function Header() {
         <nav className="nav-links">
           <button className="nav-button">My Books</button>
           <button className="nav-button">Friends</button>
-          <button className="nav-button primary">Log Out</button>
+          <button className="nav-button primary" onClick={onLogout}>
+            Log Out
+          </button>
         </nav>
       </div>
     </header>

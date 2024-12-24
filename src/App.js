@@ -88,15 +88,19 @@ export default function App() {
     }
   }
 
-  function onLoggedIn(e) {
-    setLoggedInUser(e.target.value);
+  function onLoggedIn(fullname) {
+    setLoggedInUser(fullname);
+  }
+
+  function onLogout() {
+    setLoggedInUser(null);
   }
 
   return (
     <div className="App">
       {loggedInUser ? (
         <>
-          <Header />
+          <Header onLogout={onLogout} />
           <AddBookForm onAddBook={onAddBook} />
           <BookList
             books={books}
@@ -104,9 +108,10 @@ export default function App() {
             onBookStatusChange={handleBookStatusChange}
             onFilterBooks={handleFilterBooks}
             onDeleteBook={handleDeleteBook}
+            loggedInUser={loggedInUser}
           />
           <AddFriendForm />
-          <FriendList friends={friends} />
+          <FriendList friends={friends} loggedInUser={loggedInUser} />
         </>
       ) : (
         <Home loggedIn={onLoggedIn} />

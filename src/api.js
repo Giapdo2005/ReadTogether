@@ -16,7 +16,6 @@ export const fetchBooks = async () => {
 export const addBook = async (bookData) => {
   try {
     const response = await axios.post(`${API_BASE_URL}/books`, bookData);
-
     return response.data;
   } catch (error) {
     console.error("addBook -> error", error);
@@ -49,12 +48,15 @@ export const deleteSelectedBook = async (id) => {
 };
 
 // check if user exists for login auth
-export const handleLogin = async (username, password) => {
+export const handleLogin = async (email, password) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/users/login`);
-    return response.data;
+    const response = await axios.post(`${API_BASE_URL}/users/login`, {
+      email,
+      password,
+    });
+    return response.data.user;
   } catch (error) {
-    console.error("login unsuccessful", error);
+    console.error("login unsuccessful", error.response?.data || error.message);
     throw error;
   }
 };

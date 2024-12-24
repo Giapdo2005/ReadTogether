@@ -2,20 +2,25 @@ import React, { useState } from "react";
 import { handleLogin } from "../api";
 import "../styles/Home.css";
 
-export function Home({ onLoggedIn }) {
+export function Home({ loggedIn }) {
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  async function onHandleLogin() {
+  async function onHandleLogin(e) {
+    e.preventDefault();
+    console.log("clicked");
+
     if (!email || !password) {
-      console.log("Username and password are required");
+      console.log("email and password are required");
+      return;
     }
     try {
       const response = await handleLogin(email, password);
-      onLoggedIn(response.data.fullname);
       console.log("Login successfully");
+      console.log(response.fullname);
+      loggedIn(response.fullname);
     } catch (error) {
       console.error("onLogin -> error", error);
     }
