@@ -60,3 +60,17 @@ export const handleLogin = async (email, password) => {
     throw error;
   }
 };
+
+// signup route
+export const handleSignup = async (fullname, email, password) => {
+  try {
+    const response = await axios.post(`${API_BASE_URL}/users/signup`, {
+      fullname,
+      email,
+      password,
+    });
+    return response.data.user;
+  } catch (error) {
+    console.error("Signup unsuccessful", error.response?.data || error.message);
+  }
+};

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { handleLogin } from "../api";
+import { handleLogin, handleSignup } from "../api";
 import "../styles/Home.css";
 
 export function Home({ loggedIn }) {
@@ -7,10 +7,10 @@ export function Home({ loggedIn }) {
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
 
   async function onHandleLogin(e) {
     e.preventDefault();
-    console.log("clicked");
 
     if (!email || !password) {
       console.log("email and password are required");
@@ -19,14 +19,32 @@ export function Home({ loggedIn }) {
     try {
       const response = await handleLogin(email, password);
       console.log("Login successfully");
-      console.log(response.fullname);
       loggedIn(response.fullname);
     } catch (error) {
       console.error("onLogin -> error", error);
     }
   }
 
-  async function onHandleSignUp() {}
+  async function onHandleSignUp(e) {
+    e.preventDefault();
+    console.log("clicked");
+
+    if (!fullname || !email || !password) {
+      alert("Fullname, email, password are required");
+    }
+
+    if (password !== passwordConfirm) {
+      alert("Please make sure your passwords match");
+    }
+
+    try {
+      const response = await handleSignup(fullname, email, password);
+      console.log("Signup successful");
+      setIsLoginMode(true);
+    } catch (error) {
+      console.error("onSignup -> error", error);
+    }
+  }
 
   return (
     <div className="intro-page">
@@ -94,7 +112,12 @@ export function Home({ loggedIn }) {
           {!isLoginMode && (
             <div className="form-group">
               <label>Confirm Password</label>
-              <input type="password" placeholder="Confirm your password" />
+              <input
+                type="password"
+                placeholder="Confirm your password"
+                value={passwordConfirm}
+                onChange={(e) => setPasswordConfirm(e.target.value)}
+              />
             </div>
           )}
 
